@@ -1,12 +1,9 @@
 import javafx.util.Pair;
 
-import javax.xml.crypto.dsig.keyinfo.KeyValue;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.security.Key;
-import java.security.KeyPair;
 import java.util.*;
 
 public class Task3 {
@@ -33,7 +30,7 @@ public class Task3 {
             }
             String[] str = s.split(" ");
             for (int i = 0; i < str.length; i++) {
-                if (!str[i].equals("")) {
+                if (!str[i].equals("") && str[i].length() > 3) {
                     allWords++;
                     if (wordQuantity.containsKey(str[i])) {
                         wordQuantity.put(str[i], wordQuantity.get(str[i]) + 1);

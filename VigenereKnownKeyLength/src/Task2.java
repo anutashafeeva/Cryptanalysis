@@ -3,10 +3,13 @@ import javafx.util.Pair;
 import java.io.*;
 import java.util.*;
 
+import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
+
 public class Task2 {
 
     void task2() throws IOException {
 
+        Scanner scanner = new Scanner(System.in);
         BufferedReader inLeng = new BufferedReader(new FileReader("task2_length.txt"));
         BufferedReader inCipher = new BufferedReader(new FileReader("task2_cipher.txt"));
         BufferedReader inPeriod = new BufferedReader(new FileReader("task2_periodicity.txt"));
@@ -68,20 +71,38 @@ public class Task2 {
         }
 
         alph.sort(Comparator.naturalOrder());
-        if (alph.contains("ё")){
+        if (alph.contains("ё")) {
             for (int i = alph.size() - 1; i > alph.indexOf("е"); i--) {
                 alph.set(i, alph.get(i - 1));
             }
             alph.set(alph.indexOf("е") + 1, "ё");
         }
 
-        for (int i = 0; i < l; i++) {
-            String s1 = periodTable.get(i).get(periodTable.get(i).size() - 1).getValue();
-            String s2 = period.get(0).getKey();
-            int pos1 = alph.indexOf(s1);
-            int pos2 = alph.indexOf(s2);
-            int pos = (pos1 - pos2 + period.size()) % period.size();
-            out.print(alph.get(pos));
+        System.out.println("Сколько частых букв хотите использовать при поиске ключа");
+        int countLetter = scanner.nextInt();
+
+        List<String> fasterLetter = new ArrayList<>();
+        for (int i = 0; i < countLetter; i++) {
+            StringBuilder str = new StringBuilder();
+            for (int j = 0; j < l; j++) {
+                String s1 = periodTable.get(j).get(periodTable.get(j).size() - i - 1).getValue();
+                String s2 = period.get(0).getKey();
+                int pos1 = alph.indexOf(s1);
+                int pos2 = alph.indexOf(s2);
+                int pos = (pos1 - pos2 + period.size()) % period.size();
+                str.append(alph.get(pos));
+            }
+            fasterLetter.add(str.toString());
+        }
+
+        List<String> ans = new ArrayList<>();
+        for (int i = 0; i < countLetter; i++) {
+            String newS = String.valueOf(fasterLetter.get(i).charAt(0));
+            nextStep(1, newS, fasterLetter, ans);
+        }
+
+        for (int i = 0; i < ans.size(); i++) {
+            out.println(ans.get(i));
         }
 
         inCipher.close();
@@ -91,19 +112,19 @@ public class Task2 {
         outPeriodTable.close();
     }
 
-    private List<String> nextStep(Integer vert, List<String> table, String s, List<Boolean> used, List<String> ans) {
-        List<Integer> next = new ArrayList<>();
-        for (int i = 0; i < table.size(); i++) {
-            if (!used.get(i) && table.get(vert).charAt(i) == ' ') {
-                next.add(i);
+    private List<String> nextStep(Integer pos, String s, List<String> array, List<String> ans) {
+
+        List<String> next = new ArrayList<>();
+        if (pos < array.get(0).length()) {
+            for (int i = 0; i < array.size(); i++) {
+                next.add(String.valueOf(array.get(i).charAt(pos)));
             }
-        }
-        for (int i = 0; i < next.size(); i++) {
-            s += String.valueOf(next.get(i) + 1);
-            used.set(next.get(i), true);
-            nextStep(next.get(i), table, s, used, ans);
-            s = s.substring(0, s.length() - 1);
-            used.set(next.get(i), false);
+
+            for (int i = 0; i < next.size(); i++) {
+                s += next.get(i);
+                nextStep(pos + 1, s, array, ans);
+                s = s.substring(0, s.length() - 1);
+            }
         }
         if (next.size() == 0) {
             ans.add(s);
@@ -111,5 +132,4 @@ public class Task2 {
 
         return ans;
     }
-
 }

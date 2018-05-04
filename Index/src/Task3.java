@@ -59,8 +59,8 @@ public class Task3 {
                     int posI = alph.indexOf(key.charAt(posKey));
                     String x = table.get(posI);
                     int posJ = alph.indexOf(str_y.charAt(i));
-                    out_cipher.print(x.charAt(posJ));
                     ans += x.charAt(posJ);
+                    out_cipher.print(x.charAt(posJ));
                     posKey = (posKey + 1) % key.length();
                 }
 

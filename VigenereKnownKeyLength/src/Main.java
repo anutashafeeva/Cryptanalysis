@@ -11,7 +11,7 @@ public class Main {
         System.out.println("1 - Вычисление таблицы частот языка открытых сообщений");
         System.out.println("2 - Вычисление ключа шифра Виженера при известной длине ключа");
         System.out.println("3 - Вычисление таблицы наиболее частых слов в языке открытых сообщений");
-        System.out.println("4 - Вычисление ключа шифра Виженере при известной длине ключа");
+        System.out.println("4 - Вычисление ключа шифра Виженера при известной длине ключа");
 
         int parameter = scanner.nextInt();
         switch (parameter){
@@ -27,10 +27,10 @@ public class Main {
                 new Task3().task3();
                 break;
             }
-            /*case 4:{
+            case 4:{
                 new Task4().task4();
                 break;
-            }*/
+            }
         }
     }
 }

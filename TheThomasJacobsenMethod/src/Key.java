@@ -47,6 +47,7 @@ public class Key {
             k0 += String.valueOf(alph.charAt((int) (random() * alph.length())));
         }
         k = k0;
+        System.out.println(k);
 
         while (true) {
             StringBuilder kY = cipher(cipher, k, alph, table);
