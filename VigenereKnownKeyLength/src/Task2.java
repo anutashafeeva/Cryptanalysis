@@ -85,8 +85,8 @@ public class Task2 {
         for (int i = 0; i < countLetter; i++) {
             StringBuilder str = new StringBuilder();
             for (int j = 0; j < l; j++) {
-                String s1 = periodTable.get(j).get(periodTable.get(j).size() - i - 1).getValue();
-                String s2 = period.get(0).getKey();
+                String s1 = periodTable.get(j).get(periodTable.get(j).size() - 1).getValue();
+                String s2 = period.get(i).getKey();
                 int pos1 = alph.indexOf(s1);
                 int pos2 = alph.indexOf(s2);
                 int pos = (pos1 - pos2 + period.size()) % period.size();

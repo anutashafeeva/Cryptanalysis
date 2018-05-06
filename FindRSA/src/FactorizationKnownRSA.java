@@ -37,11 +37,14 @@ public class FactorizationKnownRSA {
             }
 
             if (v.equals(BigInteger.ONE)) {
-                System.out.println("p = " + gcd(u.add(n).subtract(BigInteger.ONE), n));
-                System.out.println("q = " + gcd(u.add(BigInteger.ONE), n));
-                break;
+                BigInteger p = gcd(u.add(n).subtract(BigInteger.ONE), n);
+                BigInteger q = gcd(u.add(BigInteger.ONE), n);
+                if (!p.equals(BigInteger.ONE) && !q.equals(BigInteger.ONE)) {
+                    System.out.println("p = " + p);
+                    System.out.println("q = " + q);
+                    break;
+                }
             }
-            a = a.add(BigInteger.ONE);
         }
     }
 

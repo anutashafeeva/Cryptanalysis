@@ -12,6 +12,7 @@ public class SystemParameters {
         PrintWriter outPQ = new PrintWriter("task1_p_q.txt");
         PrintWriter outPublicKey = new PrintWriter("task1_publicKey.txt");
         PrintWriter outSecretKey = new PrintWriter("task1_secretKey.txt");
+        PrintWriter outParameters = new PrintWriter("task1_parameters.txt");
 
         System.out.println("Введите длины чисел p и q");
         int lp = scanner.nextInt();
@@ -30,8 +31,13 @@ public class SystemParameters {
             }
             if (gcd(e, phi).equals(BigInteger.ONE))
                 break;
+            else
+                e = new BigInteger((int) (Math.random() * phi.bitLength() + 2), SecureRandom.getInstance("SHA1PRNG"));
         }
         BigInteger d = e.modInverse(phi);
+
+        outParameters.println(n);
+        outParameters.println(phi);
 
         outPQ.println(p);
         outPQ.println(q);
@@ -39,6 +45,7 @@ public class SystemParameters {
         outPublicKey.println(e);
         outSecretKey.println(d);
 
+        outParameters.close();
         outPQ.close();
         outPublicKey.close();
         outSecretKey.close();
